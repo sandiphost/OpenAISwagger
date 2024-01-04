@@ -60,6 +60,7 @@ app.UseSwagger();
 app.UseSwaggerUI(setupAction =>
 {
     setupAction.SwaggerEndpoint("/swagger/LibraryAPISwagger/swagger.json","Library API");
+    setupAction.RoutePrefix = "";
 });
 
 app.UseAuthorization();
