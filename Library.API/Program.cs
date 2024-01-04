@@ -44,12 +44,12 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddSwaggerGen(setupAction =>
 {
-    setupAction.SwaggerDoc("LibraryAPISwagger",new Microsoft.OpenApi.Models.OpenApiInfo()
+    setupAction.SwaggerDoc("LibraryAPISwagger", new Microsoft.OpenApi.Models.OpenApiInfo()
     {
         Title = "Library API",
         Version = "1"
-    })
-})
+    });
+});
 
 var app = builder.Build();
 
@@ -59,7 +59,7 @@ app.UseHttpsRedirection();
 app.UseSwagger();
 app.UseSwaggerUI(setupAction =>
 {
-    setupAction.SwaggerEndpoint("/swagger/LibraryAPISwagger/swagger.json");
+    setupAction.SwaggerEndpoint("/swagger/LibraryAPISwagger/swagger.json","Library API");
 });
 
 app.UseAuthorization();
