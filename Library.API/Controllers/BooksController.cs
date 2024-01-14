@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Library.API.Models;
 using Library.API.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.API.Controllers
@@ -27,8 +28,10 @@ namespace Library.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Book>>> GetBooks(
-            Guid authorId)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooks(Guid authorId)
         {
             if (!await _authorRepository.AuthorExistsAsync(authorId))
             {
@@ -40,9 +43,7 @@ namespace Library.API.Controllers
         }
 
         [HttpGet("{bookId}")]
-        public async Task<ActionResult<Book>> GetBook(
-            Guid authorId,
-            Guid bookId)
+        public async Task<ActionResult<Book>> GetBook(Guid authorId, Guid bookId)
         {
             if (!await _authorRepository.AuthorExistsAsync(authorId))
             {
